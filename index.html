@@ -85,10 +85,26 @@
                         return `<button class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal" name="infoBtn"><i class="fa fa-eye"></i></button>
                         <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal" name="editBtn"><i class="fa fa-edit"></i></button>
                         <button class="btn btn-danger btn-sm" onclick="confirm('Are you sure to delete data of ${row['name']}?')"><i class="fa fa-trash"></i></button>`;
-} },
+                   } },
                 ]
-});
-        });
+            });
+            $('#exampleModal').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget);
+                var data = t.row(button.parents('tr')).data();
+                var modal = $(this);
+                if(button.attr('name')==='infoBtn') {
+                    modal.find('input').attr('readonly', true);
+                } else {
+                    modal.find('input').removeAttr('readonly');
+                }
+                modal.find('#name').val(data['name']);
+                modal.find('#position').val(data['position']);
+                modal.find('#salary').val(data['salary']);
+                modal.find('#startDate').val(data['start_date']);
+                modal.find('#office').val(data['office']);
+                modal.find('#extension').val(data['extension']);
+            }); 
+        });  
     </script>    
     <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
 </body>
